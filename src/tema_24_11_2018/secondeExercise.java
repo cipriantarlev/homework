@@ -10,17 +10,17 @@ public class secondeExercise {
 		
 		String n = scanner.next();
 		boolean ok = true;
+
 		
-		for(int i = 0, j = n.length()-1; i < n.length()/2+1 && ok;i++,j-- ) {
-			
-		if (n.charAt(i) != n.charAt(j)) {
-			ok = false;
-		}
+		for (int i = 0, j = n.length() - 1; i < n.length() / 2 + 1 && ok; i++, j--) {
+
+			if (n.charAt(i) != n.charAt(j)) {
+				ok = false;
+			}
 		}
 		if (ok) {
 			System.out.println("Acest numar este palindrom");
-		}
-		else{
+		} else {
 			System.out.println("Acest numar nu este palindrom");
 		}
 	}
