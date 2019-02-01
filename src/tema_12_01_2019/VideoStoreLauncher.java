@@ -10,11 +10,10 @@ public class VideoStoreLauncher {
 		String godfatherII = "Godfather II";
 		String starWars = "Star Wars Episode IV: A New Hope";
 		
-		
 		videoStore.addVideo(theMatrix);
+		
 		videoStore.addVideo(godfatherII);
 		videoStore.addVideo(starWars);
-		
 		
 		videoStore.receiveRating(theMatrix, 7);
 		videoStore.receiveRating(theMatrix, 8);

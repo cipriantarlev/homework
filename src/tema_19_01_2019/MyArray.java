@@ -1,3 +1,6 @@
+/**
+ * Unde e poza cu challenge-urile de pe Hackerrank?
+ */
 package tema_19_01_2019;
 
 import java.util.ArrayList;
@@ -25,7 +28,7 @@ public class MyArray {
 	public int[][] staticArray() {
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 3; j++) {
-				myArray[i][j] = i +j;
+				myArray[i][j] = i + j;
 				System.out.println("This is myArray: " + myArray[i][j]);
 			}
 		}
@@ -41,7 +44,8 @@ public class MyArray {
 
 	public int sumOfFirstDiagonal() {
 		int sum = 0;
-		int max = 0;
+		int max = 0; // o metoda tb sa faca un singur lucru, ar fi tb sa faci o metoda pt sum si una
+						// pt max
 		List<Integer> myList = new ArrayList<>();
 		for (int i = 0, j = 0; i < 3 && j < 3; i++, j++) {
 			System.out.println("This is the first diagonal of myArray: " + myArray[i][j]);
@@ -65,10 +69,10 @@ public class MyArray {
 		return sum;
 
 	}
-	
+
 	public static void main(String[] args) {
 		MyArray a = new MyArray();
-		
+
 		a.staticArray();
 		a.showFirstLine();
 		a.sumOfFirstDiagonal();
