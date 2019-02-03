@@ -31,10 +31,10 @@ public class DrawingTool {
 				}
 			}
 		}
-		
+
 		if (ok == true) {
 			System.out.println("Please enter another shape");
-		}else {
+		} else {
 			myList.add(shape);
 		}
 	}
