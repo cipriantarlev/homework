@@ -23,11 +23,6 @@ public class Circle implements Shape {
 	}
 
 	@Override
-	public String toString() {
-		return "Circle [radius=" + radius + "]";
-	}
-
-	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;

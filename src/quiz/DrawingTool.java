@@ -56,22 +56,4 @@ public class DrawingTool {
 		System.out.println(totalArea);
 		return totalArea;
 	}
-
-	public void showAllShapes() {
-		for (Shape shape : myList) {
-			System.out.println(shape);
-		}
-	}
-
-	public static void main(String[] args) {
-		DrawingTool s = new DrawingTool();
-
-		s.addShape(new Rectangle(4, 5));
-		s.addShape(new Square(2));
-		s.addShape(new Square(2));
-		s.addShape(new Square(4));
-		s.showAllShapes();
-		s.calculateTotalPerimeter();
-		s.calculateTotalArea();
-	}
 }

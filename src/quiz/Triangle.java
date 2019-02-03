@@ -28,11 +28,6 @@ public class Triangle implements Shape {
 	}
 
 	@Override
-	public String toString() {
-		return "Triangle [firstSide=" + firstSide + ", secondeSide=" + secondeSide + ", thirdSide=" + thirdSide + "]";
-	}
-
-	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;

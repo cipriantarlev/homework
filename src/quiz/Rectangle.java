@@ -28,11 +28,6 @@ public class Rectangle implements Shape {
 	}
 
 	@Override
-	public String toString() {
-		return "Rectangle [width=" + width + ", height=" + height + "]";
-	}
-
-	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;

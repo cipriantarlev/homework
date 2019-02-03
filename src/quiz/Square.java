@@ -21,12 +21,6 @@ public class Square implements Shape {
 		this.area = side * 2;
 		return area;
 	}
-
-	@Override
-	public String toString() {
-		return "Square [side=" + side + "]";
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
