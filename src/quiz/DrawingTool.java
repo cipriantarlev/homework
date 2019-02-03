@@ -8,17 +8,34 @@ public class DrawingTool {
 	List<Shape> myList = new ArrayList<>();
 
 	public void addShape(Shape shape) {
-		if (myList.isEmpty()) {
-			myList.add(shape);
-		}
-		if (shape instanceof Square) {
-			for (Shape interShape : myList) {
-				if (interShape.equals(shape)) {
-					System.out.println("Please enter another shape");
-				} else {
-					myList.add(shape);
+		boolean ok = false;
+		for (Shape interShape : myList) {
+			if (interShape instanceof Square) {
+				if (shape.equals(interShape)) {
+					ok = true;
 				}
 			}
+			if (interShape instanceof Rectangle) {
+				if (shape.equals(interShape)) {
+					ok = true;
+				}
+			}
+			if (interShape instanceof Circle) {
+				if (shape.equals(interShape)) {
+					ok = true;
+				}
+			}
+			if (interShape instanceof Triangle) {
+				if (shape.equals(interShape)) {
+					ok = true;
+				}
+			}
+		}
+		
+		if (ok == true) {
+			System.out.println("Please enter another shape");
+		}else {
+			myList.add(shape);
 		}
 	}
 
@@ -52,6 +69,7 @@ public class DrawingTool {
 		s.addShape(new Rectangle(4, 5));
 		s.addShape(new Square(2));
 		s.addShape(new Square(2));
+		s.addShape(new Square(4));
 		s.showAllShapes();
 		s.calculateTotalPerimeter();
 		s.calculateTotalArea();
