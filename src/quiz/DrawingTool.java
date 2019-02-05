@@ -37,6 +37,17 @@ public class DrawingTool {
 		} else {
 			myList.add(shape);
 		}
+		
+		//te-ai complicat destul de tare in metoda asta
+		//puteai sa folosesti contains, care inglobeaza toata logica asta facuta de tine
+		/*      o sugestie de-a mea ar fi asa
+		if (myList.contains(shape)) {
+			System.out.println("This shape has been already added to the tool!");
+			return;
+		}
+		myList.add(shape);
+		*/
+	
 	}
 
 	public double calculateTotalPerimeter() {

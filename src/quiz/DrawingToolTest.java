@@ -5,9 +5,9 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 public class DrawingToolTest {
-
+	//as fi vrut un test si pentru addShape
 	private DrawingTool engine = new DrawingTool();
-
+	
 	@Test
 	public void calculateTotalPerimeterTest() {
 		engine.addShape(new Square(4));
