@@ -6,9 +6,9 @@ public class Hobby {
 	
 	private String name;
 	private int frequency;
-	private List<Adrese> adrese = new ArrayList<>();
+	private List<Adress> adrese = new ArrayList<>();
 	
-	public Hobby(String name, int frequency,List<Adrese> adrese) {
+	public Hobby(String name, int frequency,List<Adress> adrese) {
 		super();
 		this.name = name;
 		this.frequency = frequency;

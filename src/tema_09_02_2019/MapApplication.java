@@ -12,53 +12,53 @@ public class MapApplication {
 		
 		Map<Person,List<Hobby>> map = new HashMap<>();
 		
-		List<Hobby> hoby1 = new ArrayList<>();
-		List<Hobby> hoby2 = new ArrayList<>();
-		List<Hobby> hoby3 = new ArrayList<>();
-		List<Hobby> hoby4 = new ArrayList<>();
-		List<Hobby> hoby5 = new ArrayList<>();
+		List<Hobby> hobbies1 = new ArrayList<>();
+		List<Hobby> hobbies2 = new ArrayList<>();
+		List<Hobby> hobbies3 = new ArrayList<>();
+		List<Hobby> hobbies4 = new ArrayList<>();
+		List<Hobby> hobbies5 = new ArrayList<>();
 		
-		List<Adrese> swiming = new ArrayList<>();
-		swiming.add(new Adrese("Italy"));
-		swiming.add(new Adrese("Romania"));
+		List<Adress> swimingAdresses = new ArrayList<>();
+		swimingAdresses.add(new Adress("Italy"));
+		swimingAdresses.add(new Adress("Romania"));
 		
-		List<Adrese> cycling = new ArrayList<>();
-		cycling.add(new Adrese("Romania"));
-		cycling.add(new Adrese("Germany"));
-		cycling.add(new Adrese("Austria"));
+		List<Adress> cyclingAdresses = new ArrayList<>();
+		cyclingAdresses.add(new Adress("Romania"));
+		cyclingAdresses.add(new Adress("Germany"));
+		cyclingAdresses.add(new Adress("Austria"));
 		
-		List<Adrese> skating = new ArrayList<>();
-		skating.add(new Adrese("USA"));
+		List<Adress> skatingAdresses = new ArrayList<>();
+		skatingAdresses.add(new Adress("USA"));
 		
-		List<Adrese> walking = new ArrayList<>();
-		walking.add(new Adrese("Romania"));
-		walking.add(new Adrese("Bulgari"));
-		walking.add(new Adrese("Slovakia"));
-		walking.add(new Adrese("Denmark"));
-		
-		
-		hoby1.add(new Hobby("swiming", 5,swiming));
-		hoby1.add(new Hobby("cycling", 6, cycling));
-		
-		hoby2.add(new Hobby("skating", 4, skating));
-		hoby2.add(new Hobby("cycling", 9, cycling));
-		
-		hoby3.add(new Hobby("swiming", 12,swiming));
-		hoby3.add(new Hobby("skating", 18, skating));
-		
-		hoby4.add(new Hobby("walking", 34, walking));
-		hoby4.add(new Hobby("swiming", 4,swiming));
-		
-		hoby5.add(new Hobby("cycling", 19, cycling));
-		hoby5.add(new Hobby("walking", 45,walking));
+		List<Adress> walkingAdresses = new ArrayList<>();
+		walkingAdresses.add(new Adress("Romania"));
+		walkingAdresses.add(new Adress("Bulgari"));
+		walkingAdresses.add(new Adress("Slovakia"));
+		walkingAdresses.add(new Adress("Denmark"));
 		
 		
+		hobbies1.add(new Hobby("swiming", 5,swimingAdresses));
+		hobbies1.add(new Hobby("cycling", 6, cyclingAdresses));
 		
-		map.put(new Person("Ion"), hoby1);
-		map.put(new Person("Vasile"), hoby2);
-		map.put(new Person("Paul"), hoby3);
-		map.put(new Person("Adi"), hoby4);
-		map.put(new Person("Mihai"), hoby5);
+		hobbies2.add(new Hobby("skating", 4, skatingAdresses));
+		hobbies2.add(new Hobby("cycling", 9, cyclingAdresses));
+		
+		hobbies3.add(new Hobby("swiming", 12,swimingAdresses));
+		hobbies3.add(new Hobby("skating", 18, skatingAdresses));
+		
+		hobbies4.add(new Hobby("walking", 34, walkingAdresses));
+		hobbies4.add(new Hobby("swiming", 4,swimingAdresses));
+		
+		hobbies5.add(new Hobby("cycling", 19, cyclingAdresses));
+		hobbies5.add(new Hobby("walking", 45,walkingAdresses));
+		
+		
+		
+		map.put(new Person("Ion"), hobbies1);
+		map.put(new Person("Vasile"), hobbies2);
+		map.put(new Person("Paul"), hobbies3);
+		map.put(new Person("Adi"), hobbies4);
+		map.put(new Person("Mihai"), hobbies5);
 		
 		
 		for (Person person : map.keySet()) {
