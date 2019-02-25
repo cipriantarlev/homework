@@ -30,6 +30,8 @@ public class ATM {
 			this.changePin(cardNumber);
 			System.out.println("Good day Mr/Ms" + bankAccount.get(cardNumber));
 			this.soldInterrogation(cardNumber);
+			this.changeAccountInfo(cardNumber);
+			System.out.println("Good day Mr/Ms" + bankAccount.get(cardNumber));
 			this.quit(cardNumber);
 		}else {
 			System.out.println("Please enter a valid card number!");
@@ -61,8 +63,11 @@ public class ATM {
 		System.out.println("Now your sold is: " + bankAccount.get(cardNumber).getSold());;
 	}
 
-	public void changeAccountInfo() {
-		
+	public void changeAccountInfo(String cardNumber) {
+		System.out.println("Please enter the new account owner: ");
+		String firstName = scan.next();
+		String lastName = scan.next();
+		bankAccount.get(cardNumber).setAccountOwner(firstName + " " + lastName);
 	}
 
 	public void quit(String cardNumber) {
