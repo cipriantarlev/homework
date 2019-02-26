@@ -2,26 +2,16 @@ package tema_23_02_2019;
 
 public class BankAccount {
 	
-	//private String cardNumber;
 	private int pin;
 	private double sold;
 	private String accountOwner;
 	
 	public BankAccount( String accountOwner, int pin, double sold) {
 		super();
-		//this.cardNumber = cardNumber;
 		this.pin = pin;
 		this.sold = sold;
 		this.accountOwner = accountOwner;
 	}
-
-//	public String getCardNumber() {
-//		return cardNumber;
-//	}
-//
-//	public void setCardNumber(String cardNumber) {
-//		this.cardNumber = cardNumber;
-//	}
 
 	public int getPin() {
 		return pin;
