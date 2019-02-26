@@ -90,7 +90,7 @@ public class ATM implements ATMInterface {
 	}
 
 	public void quit(String cardNumber) {
-		System.out.println("Have a good day Mr/Ms " + bank.bankAccount.get(cardNumber).getAccountOwner() + "!");
+		System.out.println("Have a good day Mr/Mrs " + bank.bankAccount.get(cardNumber).getAccountOwner() + "!");
 	}
 
 	public static void main(String[] args) {
