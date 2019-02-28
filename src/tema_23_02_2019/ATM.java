@@ -5,8 +5,16 @@ import java.util.*;
 public class ATM implements ATMInterface {
 
 	private Scanner scan = new Scanner(System.in);    // este ok sa creezi Scanner aici sau mai bine creez unul nou cand am nevoie?
-	private Bank bank = new Bank();											 //Eu am creat aici unul si dupa il folosesc in metode.
-													//
+	private Bank bank = new Bank();					 
+
+	public Bank getBank(){
+		return bank;
+	}
+	
+	public void setBank(Bank bank) {
+		this.bank = bank;
+	}
+
 	public void start() {
 		bank.initiateBankAccounts();
 
@@ -15,8 +23,8 @@ public class ATM implements ATMInterface {
 		boolean again1 = true;
 		while (again1) {
 			String cardNumber = scan.nextLine();
-			if (bank.bankAccount.containsKey(cardNumber)) {
-				System.out.print("Good day Mr/Mrs " + bank.bankAccount.get(cardNumber).getAccountOwner());
+			if (bank.bankAccounts.containsKey(cardNumber)) {
+				System.out.print("Good day Mr/Mrs " + bank.bankAccounts.get(cardNumber).getAccountOwner());
 
 				boolean again = true;
 				while (again) {
@@ -27,19 +35,29 @@ public class ATM implements ATMInterface {
 					String option = scan.next();
 					switch (option) {
 					case "1":
-						this.deposit(cardNumber);
+						System.out.println("Please enter the amount you want to deposit: ");
+						double moneyForDepost = scan.nextDouble();
+						this.deposit(cardNumber, moneyForDepost);
 						break;
 					case "2":
-						this.withdraw(cardNumber);
+						System.out.println("Please enter the amount you want to withdraw: ");
+						double moneyForWithdraw = scan.nextDouble();
+						this.withdraw(cardNumber, moneyForWithdraw);
 						break;
 					case "3":
-						this.changePin(cardNumber);
+						System.out.println("Please enter the PIN that you want to set: ");
+						int pin = scan.nextInt();
+						this.changePin(cardNumber,pin);
 						break;
 					case "4":
-						this.soldInterrogation(cardNumber);
+						System.out.println("Your card balance is: " + this.soldInterrogation(cardNumber));
+						
 						break;
 					case "5":
-						this.editAccountInfo(cardNumber);
+						System.out.println("Please enter the new account owner: ");
+						String firstName = scan.next();
+						String lastName = scan.next();
+						this.editAccountInfo(cardNumber, firstName, lastName);
 						break;
 					case "6":
 						this.quit(cardNumber);
@@ -58,39 +76,30 @@ public class ATM implements ATMInterface {
 		}
 	}
 
-	public void deposit(String cardNumber) {
-		System.out.println("Please enter the amount you want to deposit: ");
-		double money = scan.nextDouble();
-		money = bank.bankAccount.get(cardNumber).getSold() + money;
-		bank.bankAccount.get(cardNumber).setSold(money);
+	public void deposit(String cardNumber, double money) {
+		money = bank.bankAccounts.get(cardNumber).getSold() + money;
+		bank.bankAccounts.get(cardNumber).setSold(money);
 	}
 
-	public void withdraw(String cardNumber) {
-		System.out.println("Please enter the amount you want to withdraw: ");
-		double money = scan.nextDouble();
-		money = bank.bankAccount.get(cardNumber).getSold() - money;
-		bank.bankAccount.get(cardNumber).setSold(money);
+	public void withdraw(String cardNumber, double money) {
+		money = bank.bankAccounts.get(cardNumber).getSold() - money;
+		bank.bankAccounts.get(cardNumber).setSold(money);
 	}
 
-	public void changePin(String cardNumber) {
-		System.out.println("Please enter the PIN that you want to set: ");
-		int pin = scan.nextInt();
-		bank.bankAccount.get(cardNumber).setPin(pin);
+	public void changePin(String cardNumber, int pin) {
+		bank.bankAccounts.get(cardNumber).setPin(pin);
 	}
 
-	public void soldInterrogation(String cardNumber) {
-		System.out.println("Your card balance is: " + bank.bankAccount.get(cardNumber).getSold());
+	public double soldInterrogation(String cardNumber) {
+		return bank.bankAccounts.get(cardNumber).getSold();
 	}
 
-	public void editAccountInfo(String cardNumber) {
-		System.out.println("Please enter the new account owner: ");
-		String firstName = scan.next();
-		String lastName = scan.next();
-		bank.bankAccount.get(cardNumber).setAccountOwner(firstName + " " + lastName);
+	public void editAccountInfo(String cardNumber, String firstName, String lastName) {
+		bank.bankAccounts.get(cardNumber).setAccountOwner(firstName + " " + lastName);
 	}
 
 	public void quit(String cardNumber) {
-		System.out.println("Have a good day Mr/Mrs " + bank.bankAccount.get(cardNumber).getAccountOwner() + "!");
+		System.out.println("Have a good day Mr/Mrs " + bank.bankAccounts.get(cardNumber).getAccountOwner() + "!");
 	}
 
 	public static void main(String[] args) {
