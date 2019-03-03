@@ -5,6 +5,7 @@ import java.util.Map;
 
 public class Bank {
 	
+	//dupa ce inlocuiesti peste tot folosirea directa cu apelul de getter, fa-l private
 	protected Map<String, BankAccount> bankAccounts = new HashMap<>();
 	
 	public void initiateBankAccounts () {
@@ -14,5 +15,15 @@ public class Bank {
 		bankAccounts.put("2345 1234 3456 4567", new BankAccount("Andrei Gornoviceanu", 4321, 954));
 		bankAccounts.put("2345 3456 4567 1234", new BankAccount("Adi Tonita", 5678, 2847));
 	}
+
+	public Map<String, BankAccount> getBankAccounts() {
+		return bankAccounts;
+	}
+
+	public void setBankAccounts(Map<String, BankAccount> bankAccounts) {
+		this.bankAccounts = bankAccounts;
+	}
+	
+	
 
 }

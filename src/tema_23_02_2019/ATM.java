@@ -3,8 +3,9 @@ package tema_23_02_2019;
 import java.util.*;
 
 public class ATM implements ATMInterface {
-
-	private Scanner scan = new Scanner(System.in);    // este ok sa creezi Scanner aici sau mai bine creez unul nou cand am nevoie?
+	//  este ok sa creezi Scanner aici sau mai bine creez unul nou cand am nevoie?
+	//R: e foarte bine
+	private Scanner scan = new Scanner(System.in);    
 	private Bank bank = new Bank();					 
 
 	public Bank getBank(){
@@ -17,37 +18,36 @@ public class ATM implements ATMInterface {
 
 	public void start() {
 		bank.initiateBankAccounts();
-
 		System.out.println("Good Day Sir, please enter you card number:");
 
 		boolean again1 = true;
 		while (again1) {
 			String cardNumber = scan.nextLine();
-			if (bank.bankAccounts.containsKey(cardNumber)) {
-				System.out.print("Good day Mr/Mrs " + bank.bankAccounts.get(cardNumber).getAccountOwner());
+			if (bank.getBankAccounts().containsKey(cardNumber)) {
+				System.out.print("Good day Mr/Mrs " + getOwnerBankAccount(cardNumber).getAccountOwner());
 
 				boolean again = true;
 				while (again) {
-					System.out.println(" \nWhat action would you like to perform?"
-							+ "\n1) To deposit\n2) To withdraw\n3) To change pin \n4) To check your card balance"
-							+ "\n5) To edit account information \n6) To exit");
+					//e mult text aici, ca sa tinem metoda start cat mai mica, il extragem si pe el intr-o metoda separata
+					showATMOptions();
 				
-					String option = scan.next();
+					String option = scan.next(); //TODO iti sugerez sa folosesti direct int pt optiuni, e mai rapid decat String
 					switch (option) {
 					case "1":
 						System.out.println("Please enter the amount you want to deposit: ");
 						double moneyForDepost = scan.nextDouble();
-						this.deposit(cardNumber, moneyForDepost);
+						//TODO nu e nevoie de this neaparat, va spuneam ca il puteti omite cand nu exista name clash
+						deposit(cardNumber, moneyForDepost);
 						break;
 					case "2":
 						System.out.println("Please enter the amount you want to withdraw: ");
-						double moneyForWithdraw = scan.nextDouble();
-						this.withdraw(cardNumber, moneyForWithdraw);
+						//nu e necesara variabila moneyForWithdraw pt ca nu folosesti valoarea ei decato singura data
+						//iar in cazul asta poti pune direct apelul de metoda
+						withdraw(cardNumber, scan.nextDouble());
 						break;
 					case "3":
 						System.out.println("Please enter the PIN that you want to set: ");
-						int pin = scan.nextInt();
-						this.changePin(cardNumber,pin);
+						this.changePin(cardNumber,scan.nextInt());
 						break;
 					case "4":
 						System.out.println("Your card balance is: " + this.soldInterrogation(cardNumber));
@@ -77,34 +77,46 @@ public class ATM implements ATMInterface {
 	}
 
 	public void deposit(String cardNumber, double money) {
-		money = bank.bankAccounts.get(cardNumber).getSold() + money;
-		bank.bankAccounts.get(cardNumber).setSold(money);
+		//bank.getBankAccounts().get(cardNumber) apelul asta inlantuit se tot repeta in mai multe metode, cand se intampla asta il poti extrage intr-o metoda separata
+		money = getOwnerBankAccount(cardNumber).getSold() + money;
+		getOwnerBankAccount(cardNumber).setSold(money);
 	}
 
-	public void withdraw(String cardNumber, double money) {
-		money = bank.bankAccounts.get(cardNumber).getSold() - money;
-		bank.bankAccounts.get(cardNumber).setSold(money);
+
+	public void withdraw(String cardNumber, double moneyForWithdraw) {
+		moneyForWithdraw = getOwnerBankAccount(cardNumber).getSold() - moneyForWithdraw;
+		//TODO folosim getter pt getBankAccounts()
+		getOwnerBankAccount(cardNumber).setSold(moneyForWithdraw);
 	}
 
 	public void changePin(String cardNumber, int pin) {
-		bank.bankAccounts.get(cardNumber).setPin(pin);
+		getOwnerBankAccount(cardNumber).setPin(pin);
 	}
 
 	public double soldInterrogation(String cardNumber) {
-		return bank.bankAccounts.get(cardNumber).getSold();
+		return getOwnerBankAccount(cardNumber).getSold();
 	}
 
 	public void editAccountInfo(String cardNumber, String firstName, String lastName) {
-		bank.bankAccounts.get(cardNumber).setAccountOwner(firstName + " " + lastName);
+		getOwnerBankAccount(cardNumber).setAccountOwner(firstName + " " + lastName);
 	}
 
 	public void quit(String cardNumber) {
-		System.out.println("Have a good day Mr/Mrs " + bank.bankAccounts.get(cardNumber).getAccountOwner() + "!");
+		System.out.println("Have a good day Mr/Mrs " + getOwnerBankAccount(cardNumber).getAccountOwner() + "!");
 	}
 
 	public static void main(String[] args) {
-		ATM atm = new ATM();
-
-		atm.start();
+		//ATM atm = new ATM();
+		new ATM().start();
+	}
+	
+	private void showATMOptions() {
+		System.out.println(" \nWhat action would you like to perform?"
+				+ "\n1) To deposit\n2) To withdraw\n3) To change pin \n4) To check your card balance"
+				+ "\n5) To edit account information \n6) To exit");
+	}
+	
+	private BankAccount getOwnerBankAccount(String cardNumber) {
+		return bank.getBankAccounts().get(cardNumber);
 	}
 }
