@@ -9,7 +9,7 @@ public class IOHomework {
 
 	public static void main(String[] args) {
 
-		findTheLargestWord();
+		extractWordFromAFile();
 	}
 
 	public static void getListOfAllFile() {
@@ -169,7 +169,7 @@ public class IOHomework {
 		try (BufferedReader reader = new BufferedReader(new FileReader("in2.txt"))) {
 			String first = "";
 			String seconde = reader.readLine();
-			while(seconde != null) {
+			while (seconde != null) {
 				first += seconde;
 				seconde = reader.readLine();
 			}
@@ -180,11 +180,11 @@ public class IOHomework {
 	}
 
 	public static void storeIntoArray() {
-		
+
 		try (BufferedReader reader = new BufferedReader(new FileReader("in2.txt"))) {
 			String first = "";
 			String seconde = reader.readLine();
-			while(seconde != null) {
+			while (seconde != null) {
 				first += seconde;
 				seconde = reader.readLine();
 			}
@@ -192,75 +192,90 @@ public class IOHomework {
 			for (char c : charArray) {
 				System.out.println(c);
 			}
-			
+
 		} catch (IOException ex) {
 			System.out.println("I can't find the file, where it is????");
 		}
 	}
 
 	public static void writeAndReadAFile() {
-		
+
 		try (BufferedWriter writer = new BufferedWriter(new FileWriter("in1.txt", true));
-			 BufferedReader reader = new BufferedReader(new FileReader("in1.txt"))) {
-			
+				BufferedReader reader = new BufferedReader(new FileReader("in1.txt"))) {
+
 			writer.write(" Hey, salutare! Ce facet?");
 			System.out.println(reader.readLine());
-				
-			}catch (IOException e) {
-				System.out.println("I can't find the file, where it is????");
-			}
+
+		} catch (IOException e) {
+			System.out.println("I can't find the file, where it is????");
+		}
 	}
-	
+
 	public static void appendAFile() {
-		
+
 		try (PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter("in1.txt", true)));
 				BufferedReader reader = new BufferedReader(new FileReader("in1.txt"))) {
-			
+
 			writer.append("How are you gays?");
 			System.out.println(reader.readLine());
-				
-			}catch (IOException e) {
-				System.out.println("I can't find the file, where it is????");
-			}
+
+		} catch (IOException e) {
+			System.out.println("I can't find the file, where it is????");
+		}
 	}
 
 	public static void readFirst3Lines() {
-		
+
 		try (BufferedReader reader = new BufferedReader(new FileReader("in1.txt"))) {
-			
-				String line = "";
-				int i = 0;
-				while ((line = reader.readLine()) !=null && i < 3){
-					System.err.println(line);
-					i++;
-				}
-					
-				}catch (IOException e) {
-					System.out.println("I can't find the file, where it is????");
-				}
+
+			String line = "";
+			int i = 0;
+			while ((line = reader.readLine()) != null && i < 3) {
+				System.err.println(line);
+				i++;
+			}
+
+		} catch (IOException e) {
+			System.out.println("I can't find the file, where it is????");
+		}
 	}
 
 	public static void findTheLargestWord() {
 		try (Scanner scan = new Scanner(new File("in1.txt"))) {
-				
-				String largestWord = "";
-				String current = "";
-				
-			while (scan.hasNext()){
+
+			String largestWord = "";
+			String current = "";
+
+			while (scan.hasNext()) {
 				current = scan.next();
 				if (current.length() > largestWord.length()) {
 					largestWord = current;
 				}
 			}
 			System.out.println(largestWord);
-				
-			}catch (IOException e) {
-				System.out.println("I can't find the file, where it is????");
-			}
-		
-		
-		
+
+		} catch (IOException e) {
+			System.out.println("I can't find the file, where it is????");
+		}
+
 	}
 
-	
+	public static void extractWordFromAFile() {
+
+		try {
+			Scanner scaner = new Scanner(new FileReader("D:\\Eclipse\\Homework\\in1.txt"));
+			while (scaner.hasNextLine()) {
+				String line = scaner.nextLine();
+				String[] words = line.split("\\s");
+				Arrays.sort(words);
+				for (String string : words) {
+					System.out.println(string);
+				}
+			}
+		} catch (FileNotFoundException e) {
+
+			System.out.println("I can't find the file, where it is????");
+		}
+
+	}
 }
