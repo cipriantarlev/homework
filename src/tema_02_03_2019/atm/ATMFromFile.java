@@ -1,7 +1,12 @@
 package tema_02_03_2019.atm;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
+
 import java.io.*;
-import java.util.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Map;
+import java.util.Scanner;
 
 public class ATMFromFile implements ATMInterfaceFromFile {
 	// este ok sa creezi Scanner aici sau mai bine creez unul nou cand am nevoie?
@@ -95,6 +100,18 @@ public class ATMFromFile implements ATMInterfaceFromFile {
 		// separata
 		money = getOwnerBankAccount(cardNumber).getSold() + money;
 		getOwnerBankAccount(cardNumber).setSold(money);
+		rewriteBankInfoInFile();
+	}
+
+	private void rewriteBankInfoInFile() {
+		// suprascrii fisierul cu bankAccounts pe care le ai acum memorie
+		try (BufferedWriter writer = Files.newBufferedWriter(Paths.get("bank_db.csv"), UTF_8)) {
+			// scrii
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
 	public void withdraw(String cardNumber, double moneyForWithdraw) {

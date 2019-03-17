@@ -1,15 +1,27 @@
 package tema_02_03_2019.atm;
 
+import static java.lang.Double.parseDouble;
+import static java.lang.Integer.parseInt;
+
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 
 import static java.util.stream.Collectors.joining;
 
 public class BankFromFile {
-	
-	private Map<String, BankAccountFromFile> bankAccounts = new HashMap<>();
-	
-	public void initiateBankAccounts () {
+
+	private static Map<String, BankAccountFromFile> bankAccounts = new HashMap<>();
+	static {
+		try {
+			initiateBankAccountsWithLines();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void initiateBankAccounts() {
 		// cerinta pentru tema asta era ca datele astea sa le citesti din fisier
 		// apoi, dupa ce un client face o operatiune, rescrii fisierul astfel incat sa
 		// reflecte modificarile facute in timpul operatiunii
@@ -27,7 +39,7 @@ public class BankFromFile {
 	public void setBankAccounts(Map<String, BankAccountFromFile> bankAccounts) {
 		this.bankAccounts = bankAccounts;
 	}
-	
+
 	public void initiateBankAccountsFromFile() {
 		try {
 			List<String> intermediateList = readFromCSV();
@@ -37,12 +49,22 @@ public class BankFromFile {
 		}
 
 	}
-	
+
+	public static void initiateBankAccountsWithLines() throws IOException {
+		Files.lines(Paths.get("bank_db.csv")).forEach(line -> getAccountFromInfo(line));
+	}
+
+	private static void getAccountFromInfo(String line) {
+		String[] details = line.split(",");
+		BankAccountFromFile acc = new BankAccountFromFile(details[1], parseInt(details[2]), parseDouble(details[3]));
+		bankAccounts.put(details[0], acc);
+	}
+
 	private List<String> readFromCSV() throws FileNotFoundException, IOException {
 		List<String> intermediateList = new ArrayList<>();
 		BufferedReader reader = new BufferedReader(new FileReader("Bank_Data_Base_in.csv"));
 		String line = null;
-		while ((line = reader.readLine())!=null) {
+		while ((line = reader.readLine()) != null) {
 			intermediateList.add(line);
 		}
 		reader.close();
@@ -52,13 +74,16 @@ public class BankFromFile {
 	private void addInHashMap(List<String> intermediateList) {
 		String stringCollect = intermediateList.stream().collect(joining());
 		String[] splitString = stringCollect.replaceAll("\"", "").split(",");
-		for (int k = 0, a = 1, p = 2, s = 3; s < splitString.length; k+=4,a+=4,p+=4,s+=4) {
-			getBankAccounts().put(splitString[k], new BankAccountFromFile(splitString[a], Integer.parseInt(splitString[p]), Double.parseDouble(splitString[s])));
+		for (int k = 0, a = 1, p = 2, s = 3; s < splitString.length; k += 4, a += 4, p += 4, s += 4) {
+			getBankAccounts().put(splitString[k], new BankAccountFromFile(splitString[a],
+					Integer.parseInt(splitString[p]), Double.parseDouble(splitString[s])));
 		}
 	}
 
-	public static void main(String[] args) {
-		BankFromFile bank = new BankFromFile(); 
-		bank.initiateBankAccountsFromFile();
+	public static void main(String[] args) throws IOException {
+		BankFromFile bank = new BankFromFile();
+//		bank.initiateBankAccountsFromFile();
+		bank.initiateBankAccountsWithLines();
+		bank.getBankAccounts().entrySet().stream().forEach(System.out::println);
 	}
 }

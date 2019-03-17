@@ -13,23 +13,22 @@ public class IOHomework {
 	public static void main(String[] args) {
 
 		getListOfAllFileVarianta2();
-		getAFileByExtenstion();
-		checkIfFileExist();
-		checkPermision();
-		isFileOrDirectory();
-		compareLexicographicallyTwoFiles();
-		getLastModifiedTimeOfFile();
-		readInputFromConsole();
-		getFileSize();
-		readContentsFromFileIntoByteArray();
-		readLineByLine();
-		storeIntoArray();
-		writeAndReadAFile();
-		appendAFile();
-		readFirst3Lines();
-		findTheLargestWord();
-		extractWordFromAFile();
-		extractWordFromAFile();
+//		getAFileByExtenstion();
+//		checkIfFileExist();
+//		checkPermision();
+//		isFileOrDirectory();
+//		compareLexicographicallyTwoFiles();
+//		getLastModifiedTimeOfFile();
+//		readInputFromConsole();
+//		getFileSize();
+//		readContentsFromFileIntoByteArray();
+//		readLineByLine();
+//		storeIntoArray();
+//		writeAndReadAFile();
+//		appendAFile();
+//		readFirst3Lines();
+//		findTheLargestWord();
+//		extractWordFromAFile();
 
 	}
 
@@ -50,16 +49,19 @@ public class IOHomework {
 		Path pathToSrc = Paths.get(SRC_LOCATION);
 		try {
 			//cu method references
-			Files.walk(pathToSrc)
-				.map(Path::toFile)
-				.filter(File::isFile)
-				.map(File::getName)
-				.forEach(System.out::println);
+//			Files.walk(pathToSrc)
+//				.map(Path::toFile)
+//				.filter(File::isFile)
+//				.map(File::getName)
+//				.sorted()
+//				.forEach(System.out::println);
+			
 			//cu lambda, dar dpdv semantic sunt identice
 			Files.walk(pathToSrc)
 				 .map(path -> path.toFile()) //trasnform fiecare Path din stream intr-un File
 				 .filter(file -> file.isFile()) //filtrez doar fisierele
-				 .map(file -> file.getName())//trasnform fiecare File din stream intr-un String, care e numele sau
+				 .map(file -> file.getName())//transform fiecare File din stream intr-un String, care e numele sau
+				 .sorted()
 				 .forEach(file -> System.out.println(file));
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -269,8 +271,16 @@ public class IOHomework {
 		}
 	}
 
-	public static void readFirst3Lines() {
+	public static void readFirst3Lines(Path path) {
 
+		try {
+			Files.lines(path)
+					.limit(3).forEach(System.out::println);
+
+		} catch (IOException e1) {
+			System.out.println("I can't find the file, where it is????");
+		}
+		
 		try (BufferedReader reader = new BufferedReader(new FileReader("in1.txt"))) {
 
 			String line = "";
