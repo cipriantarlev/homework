@@ -7,23 +7,68 @@ import java.util.stream.Stream;
 
 public class IOHomework {
 
+	private static final String SRC_LOCATION_LOCAL = "D:\\Eclipse\\Homework\\src\\";
+	private static final String SRC_LOCATION = "C:\\Users\\ionut.spalatelu\\Desktop\\Stuff\\Courses\\Scoala_Informala\\Teme\\Ciprian_Tarlev\\homework\\src";
+
 	public static void main(String[] args) {
 
+		getListOfAllFileVarianta2();
+		getAFileByExtenstion();
+		checkIfFileExist();
+		checkPermision();
+		isFileOrDirectory();
+		compareLexicographicallyTwoFiles();
+		getLastModifiedTimeOfFile();
+		readInputFromConsole();
+		getFileSize();
+		readContentsFromFileIntoByteArray();
+		readLineByLine();
+		storeIntoArray();
+		writeAndReadAFile();
+		appendAFile();
+		readFirst3Lines();
+		findTheLargestWord();
 		extractWordFromAFile();
+		extractWordFromAFile();
+
 	}
 
 	public static void getListOfAllFile() {
-		Path path = Paths.get("D:\\Eclipse\\Homework\\src\\");
+		Path path = Paths.get(SRC_LOCATION);
 		File file = path.toFile();
+		// vezi ca metoda list() din File intoarce
+		// doar copii directi (care se gasesc imediat sub src, in cazul tau)
+		// din calea selectata
 		String[] list = file.list();
 		for (String string : list) {
 			System.out.println(string);
 		}
 	}
 
+	public static void getListOfAllFileVarianta2() {
+		// iti propun o alta varianta, pt a extrage toate fisierele din src
+		Path pathToSrc = Paths.get(SRC_LOCATION);
+		try {
+			//cu method references
+			Files.walk(pathToSrc)
+				.map(Path::toFile)
+				.filter(File::isFile)
+				.map(File::getName)
+				.forEach(System.out::println);
+			//cu lambda, dar dpdv semantic sunt identice
+			Files.walk(pathToSrc)
+				 .map(path -> path.toFile()) //trasnform fiecare Path din stream intr-un File
+				 .filter(file -> file.isFile()) //filtrez doar fisierele
+				 .map(file -> file.getName())//trasnform fiecare File din stream intr-un String, care e numele sau
+				 .forEach(file -> System.out.println(file));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 	public static void getAFileByExtenstion() {
 
-		Path path = Paths.get("D:\\Eclipse\\Homework\\src\\");
+		Path path = Paths.get(SRC_LOCATION);
 		File file = path.toFile();
 		String[] list = file.list();
 		for (String file1 : list) {
@@ -35,7 +80,7 @@ public class IOHomework {
 
 	public static void checkIfFileExist() {
 
-		Path path = Paths.get("D:\\Eclipse\\Homework\\src\\");
+		Path path = Paths.get(SRC_LOCATION);
 		File file = path.toFile();
 		String[] list = file.list();
 		for (String file1 : list) {
@@ -47,7 +92,7 @@ public class IOHomework {
 
 	public static void checkPermision() {
 
-		Path path = Paths.get("D:\\Eclipse\\Homework\\src\\");
+		Path path = Paths.get(SRC_LOCATION);
 		File file = path.toFile();
 		File[] list = file.listFiles();
 
@@ -62,7 +107,7 @@ public class IOHomework {
 
 	public static void isFileOrDirectory() {
 
-		Path path = Paths.get("D:\\Eclipse\\Homework\\src\\");
+		Path path = Paths.get(SRC_LOCATION);
 		File file = path.toFile();
 		File[] list = file.listFiles();
 
@@ -107,11 +152,8 @@ public class IOHomework {
 
 	public static void readInputFromConsole() {
 		Scanner scan = new Scanner(System.in);
-
 		String input = scan.nextLine();
-
 		System.out.println(input);
-
 		scan.close();
 	}
 
@@ -142,9 +184,11 @@ public class IOHomework {
 	}
 
 	public static void readLineByLine() {
-
-		try (BufferedReader reader = new BufferedReader(new FileReader("in2.txt"))) {
-			Stream<String> streamOfLines = reader.lines();
+//		try (BufferedReader reader = new BufferedReader(new FileReader("in2.txt"))) {
+//			Stream<String> streamOfLines = reader.lines();
+		try {
+			// o varianta mai simpla :)
+			Stream<String> streamOfLines = Files.lines(Paths.get("in2.txt"));
 			streamOfLines.forEach(line -> System.out.println(line));
 
 		} catch (IOException ex) {
@@ -217,6 +261,7 @@ public class IOHomework {
 				BufferedReader reader = new BufferedReader(new FileReader("in1.txt"))) {
 
 			writer.append("How are you gays?");
+			writer.flush();
 			System.out.println(reader.readLine());
 
 		} catch (IOException e) {
@@ -241,6 +286,7 @@ public class IOHomework {
 	}
 
 	public static void findTheLargestWord() {
+		// incearca sa rescrii metoda asta folosind Files.lines
 		try (Scanner scan = new Scanner(new File("in1.txt"))) {
 
 			String largestWord = "";
@@ -263,6 +309,7 @@ public class IOHomework {
 	public static void extractWordFromAFile() {
 
 		try {
+			// incearca sa rescrii metoda asta folosind Files.lines
 			Scanner scaner = new Scanner(new FileReader("D:\\Eclipse\\Homework\\in1.txt"));
 			while (scaner.hasNextLine()) {
 				String line = scaner.nextLine();

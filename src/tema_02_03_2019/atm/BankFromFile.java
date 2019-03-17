@@ -1,16 +1,18 @@
 package tema_02_03_2019.atm;
 
-import static java.util.stream.Collectors.joining;
-
 import java.io.*;
 import java.util.*;
 
+import static java.util.stream.Collectors.joining;
+
 public class BankFromFile {
 	
-	//dupa ce inlocuiesti peste tot folosirea directa cu apelul de getter, fa-l private //done
 	private Map<String, BankAccountFromFile> bankAccounts = new HashMap<>();
 	
 	public void initiateBankAccounts () {
+		// cerinta pentru tema asta era ca datele astea sa le citesti din fisier
+		// apoi, dupa ce un client face o operatiune, rescrii fisierul astfel incat sa
+		// reflecte modificarile facute in timpul operatiunii
 		bankAccounts.put("1234 2345 3456 4567", new BankAccountFromFile("Tarlev Ciprian", 0000, 1458));
 		bankAccounts.put("4567 1234 2345 3456", new BankAccountFromFile("Alexuta Constantin", 1111, 2457));
 		bankAccounts.put("3456 1234 2345 4567", new BankAccountFromFile("Dragos Pirvu", 1234, 3547));
