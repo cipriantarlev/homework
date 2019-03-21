@@ -8,7 +8,7 @@ import java.nio.file.Paths;
 import java.util.Map;
 import java.util.Scanner;
 
-public class ATMFromFile implements ATMInterfaceFromFile {
+public class ATMFromFile implements ATMInterfaceFromFile  {
 	// este ok sa creezi Scanner aici sau mai bine creez unul nou cand am nevoie?
 	// R: e foarte bine
 	private Scanner scan = new Scanner(System.in);
@@ -23,7 +23,11 @@ public class ATMFromFile implements ATMInterfaceFromFile {
 	}
 
 	public void start() {
-		bank.initiateBankAccountsFromFile();
+		try {
+			BankFromFile.initiateBankAccountsWithLines();
+		} catch (IOException e) {
+			System.out.println("Could't find the file!!!");
+		}
 		System.out.println("Good Day Sir, please enter you card number:");
 
 		boolean again1 = true;
@@ -103,25 +107,17 @@ public class ATMFromFile implements ATMInterfaceFromFile {
 		rewriteBankInfoInFile();
 	}
 
-	private void rewriteBankInfoInFile() {
-		// suprascrii fisierul cu bankAccounts pe care le ai acum memorie
-		try (BufferedWriter writer = Files.newBufferedWriter(Paths.get("bank_db.csv"), UTF_8)) {
-			// scrii
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-	}
 
 	public void withdraw(String cardNumber, double moneyForWithdraw) {
 		moneyForWithdraw = getOwnerBankAccount(cardNumber).getSold() - moneyForWithdraw;
 		// TODO folosim getter pt getBankAccounts()
 		getOwnerBankAccount(cardNumber).setSold(moneyForWithdraw);
+		rewriteBankInfoInFile();
 	}
 
 	public void changePin(String cardNumber, int pin) {
 		getOwnerBankAccount(cardNumber).setPin(pin);
+		rewriteBankInfoInFile();
 	}
 
 	public double soldInterrogation(String cardNumber) {
@@ -130,29 +126,47 @@ public class ATMFromFile implements ATMInterfaceFromFile {
 
 	public void editAccountInfo(String cardNumber, String firstName, String lastName) {
 		getOwnerBankAccount(cardNumber).setAccountOwner(firstName + " " + lastName);
+		rewriteBankInfoInFile();
 	}
 
 	public void quit(String cardNumber) {
-		writeToCSV();
 		System.out.println("Have a good day Mr/Mrs " + getOwnerBankAccount(cardNumber).getAccountOwner() + "!");
 	}
 
-	private void writeToCSV() {
+	private void rewriteBankInfoInFile() {
 		String eol = System.getProperty("line.separator");
-		
-		try {Writer writer = new FileWriter("Bank_Data_Base_out.csv");
-		for(Map.Entry<String, BankAccountFromFile> entry : getBank().getBankAccounts().entrySet()) {
-			writer.append(entry.getKey())
-				  .append(',')
-				  .append(entry.getValue().toString())
-				  .append(eol);
-		}
-		writer.close();	
-		}catch(IOException e){
-			e.getMessage();
+		// suprascrii fisierul cu bankAccounts pe care le ai acum memorie
+		try (BufferedWriter writer = Files.newBufferedWriter(Paths.get("bank_db.csv"), UTF_8)) {
+			// scrii
+			for(Map.Entry<String, BankAccountFromFile> entry : getBank().getBankAccounts().entrySet()) {
+				writer.append(entry.getKey())
+					  .append(',')
+					  .append(entry.getValue().toString())
+					  .append(eol);
+			}
+			writer.close();
+		}catch (IOException e) {
+			System.out.println("The file is not found!!!");;
 		}
 	}
 	
+	{
+//	private void writeToCSV() {
+//		String eol = System.getProperty("line.separator");
+//		
+//		try {Writer writer = new FileWriter("Bank_Data_Base_out.csv");
+//		for(Map.Entry<String, BankAccountFromFile> entry : getBank().getBankAccounts().entrySet()) {
+//			writer.append(entry.getKey())
+//				  .append(',')
+//				  .append(entry.getValue().toString()
+//				  .append(eol);
+//		}
+//		writer.close();	
+//		}catch(IOException e){
+//			e.getMessage();
+//		}
+//	}
+} // Varianta mea
 	private void showATMOptions() {
 		System.out.println(" \nWhat action would you like to perform?"
 				+ "\n1) To deposit\n2) To withdraw\n3) To change pin \n4) To check your card balance"

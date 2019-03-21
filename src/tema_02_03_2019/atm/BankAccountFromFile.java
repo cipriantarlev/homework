@@ -39,6 +39,6 @@ public class BankAccountFromFile {
 
 	@Override
 	public String toString() {
-		return accountOwner + "," + sold + ","+ pin;
+		return accountOwner + "," + pin + ","+ sold;
 	}
 }
