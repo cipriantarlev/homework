@@ -3,6 +3,7 @@ package tema_02_03_2019;
 import java.io.*;
 import java.nio.file.*;
 import java.util.*;
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 public class IOHomework {
@@ -12,7 +13,7 @@ public class IOHomework {
 
 	public static void main(String[] args) {
 
-		getListOfAllFileVarianta2();
+//		getListOfAllFileVarianta2();
 //		getAFileByExtenstion();
 //		checkIfFileExist();
 //		checkPermision();
@@ -29,11 +30,14 @@ public class IOHomework {
 //		readFirst3Lines();
 //		findTheLargestWord();
 //		extractWordFromAFile();
+	//	findTheLargestWordVarianta2();
+		//findTheLargestWord();
+		findTheLargestWordVarianta2();
 
 	}
 
 	public static void getListOfAllFile() {
-		Path path = Paths.get(SRC_LOCATION);
+		Path path = Paths.get(SRC_LOCATION_LOCAL);
 		File file = path.toFile();
 		// vezi ca metoda list() din File intoarce
 		// doar copii directi (care se gasesc imediat sub src, in cazul tau)
@@ -46,7 +50,7 @@ public class IOHomework {
 
 	public static void getListOfAllFileVarianta2() {
 		// iti propun o alta varianta, pt a extrage toate fisierele din src
-		Path pathToSrc = Paths.get(SRC_LOCATION);
+		Path pathToSrc = Paths.get(SRC_LOCATION_LOCAL);
 		try {
 			//cu method references
 //			Files.walk(pathToSrc)
@@ -70,7 +74,7 @@ public class IOHomework {
 
 	public static void getAFileByExtenstion() {
 
-		Path path = Paths.get(SRC_LOCATION);
+		Path path = Paths.get(SRC_LOCATION_LOCAL);
 		File file = path.toFile();
 		String[] list = file.list();
 		for (String file1 : list) {
@@ -82,7 +86,7 @@ public class IOHomework {
 
 	public static void checkIfFileExist() {
 
-		Path path = Paths.get(SRC_LOCATION);
+		Path path = Paths.get(SRC_LOCATION_LOCAL);
 		File file = path.toFile();
 		String[] list = file.list();
 		for (String file1 : list) {
@@ -94,7 +98,7 @@ public class IOHomework {
 
 	public static void checkPermision() {
 
-		Path path = Paths.get(SRC_LOCATION);
+		Path path = Paths.get(SRC_LOCATION_LOCAL);
 		File file = path.toFile();
 		File[] list = file.listFiles();
 
@@ -109,7 +113,7 @@ public class IOHomework {
 
 	public static void isFileOrDirectory() {
 
-		Path path = Paths.get(SRC_LOCATION);
+		Path path = Paths.get(SRC_LOCATION_LOCAL);
 		File file = path.toFile();
 		File[] list = file.listFiles();
 
@@ -296,7 +300,7 @@ public class IOHomework {
 	}
 
 	public static void findTheLargestWord() {
-		// incearca sa rescrii metoda asta folosind Files.lines
+		// incearca sa rescrii metoda asta folosind Files.lines // done!
 		try (Scanner scan = new Scanner(new File("in1.txt"))) {
 
 			String largestWord = "";
@@ -315,11 +319,25 @@ public class IOHomework {
 		}
 
 	}
+	
+	public static void findTheLargestWordVarianta2() {
+	
+		try {
+			 System.out.println( Files.lines(Paths.get("in1.txt"))
+			 .map(str -> str.split("\\s"))
+			 .flatMap(arraStr -> Arrays.stream(arraStr))
+			 .max((s1, s2) -> s1.length() - s2.length()));
+					 		
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+			
+	}
 
 	public static void extractWordFromAFile() {
 
 		try {
-			// incearca sa rescrii metoda asta folosind Files.lines
+			// incearca sa rescrii metoda asta folosind Files.lines \\ done
 			Scanner scaner = new Scanner(new FileReader("D:\\Eclipse\\Homework\\in1.txt"));
 			while (scaner.hasNextLine()) {
 				String line = scaner.nextLine();
@@ -334,5 +352,18 @@ public class IOHomework {
 			System.out.println("I can't find the file, where it is????");
 		}
 
+	}
+	
+	public static void extractWordFromAFile2() {
+		
+		try {
+			Files.lines(Paths.get("in1.txt"))
+				 .map(str -> str.split(" "))
+				 .flatMap(arraStr -> Arrays.stream(arraStr))
+				 .forEach(a -> System.out.println(a));
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
