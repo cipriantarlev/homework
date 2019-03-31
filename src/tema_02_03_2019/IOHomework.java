@@ -13,7 +13,7 @@ public class IOHomework {
 
 	public static void main(String[] args) {
 
-//		getListOfAllFileVarianta2();
+		getListOfAllFileVarianta2();
 //		getAFileByExtenstion();
 //		checkIfFileExist();
 //		checkPermision();
@@ -32,7 +32,7 @@ public class IOHomework {
 //		extractWordFromAFile();
 	//	findTheLargestWordVarianta2();
 		//findTheLargestWord();
-		findTheLargestWordVarianta2();
+	//	findTheLargestWordVarianta2();
 
 	}
 
@@ -50,7 +50,7 @@ public class IOHomework {
 
 	public static void getListOfAllFileVarianta2() {
 		// iti propun o alta varianta, pt a extrage toate fisierele din src
-		Path pathToSrc = Paths.get(SRC_LOCATION_LOCAL);
+		Path pathToSrc = Paths.get("D:\\TorrentsMd");
 		try {
 			//cu method references
 //			Files.walk(pathToSrc)

@@ -1,0 +1,10 @@
+cd       Change Directory - move to a specific Folder
+copy     Copy one or more files to another location
+xcopy    Copy one or more folders to another location
+del      Delete one or more files
+rd       Delete folder(s)
+dir      Display a list of files and folders
+mkdir    Create a new directory
+ren      Rename a file
+rendir   Rename a folder
+move     Move files from one folder to another
