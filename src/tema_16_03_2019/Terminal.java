@@ -109,7 +109,7 @@ public class Terminal {
 	public void showDirectories() { // "dir" command
 		try {
 			Files.walk(Paths.get(scan.next()))
-				 .map(path1 -> path1.toFile().getName())
+				 .map(path1 -> path1.toAbsolutePath().toFile().getAbsolutePath())
 				 .sorted()
 				 .forEach(file -> System.out.println(file));		
 		} catch (UncheckedIOException e) {
