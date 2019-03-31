@@ -8,3 +8,4 @@ mkdir    Create a new directory
 ren      Rename a file
 rendir   Rename a folder
 move     Move files from one folder to another
+exit     Close the terminal
