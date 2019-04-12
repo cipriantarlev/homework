@@ -1,10 +1,15 @@
 package tema_23_03_2019;
 
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class Streams {
+	
+	public static void main(String[] args) {
+		System.out.println(generate10RandomNumbers());
+	}
 
 	public static class NotImplementedException extends RuntimeException {
 		public NotImplementedException() {
@@ -13,11 +18,14 @@ public class Streams {
 	}
 
 	public static List<Integer> returnSquareRoot(List<Integer> numbers) {
+		
 		throw new NotImplementedException();
 	}
 
 	public static List<Integer> getAgeFromUsers(List<User> user) {
-		throw new NotImplementedException();
+		return user.stream()
+				   .map(u -> u.getAge())
+				   .collect(Collectors.toList());
 	}
 
 	public static List<Integer> getDistinctAges(List<User> users) {
@@ -25,15 +33,19 @@ public class Streams {
 	}
 
 	public static List<User> getLimitedUserList(List<User> users, int limit) {
-		throw new NotImplementedException();
+		return users.stream()
+					.limit(limit)
+					.collect(Collectors.toList());
 	}
 
 	public static Integer countUsersOlderThen25(List<User> users) {
 		throw new NotImplementedException();
 	}
 
-	public static List<String> mapToUpperCase(List<String> strings) {
-		throw new NotImplementedException();
+	public static List<String> mapToUpperCase(List<String> strings) {	
+		return strings.stream()
+					  .map(str -> str.toUpperCase())
+					  .collect(Collectors.toList());	
 	}
 
 	public static Integer sum(List<Integer> integers) {
@@ -113,7 +125,12 @@ public class Streams {
 	}
 
 	public static List<Integer> generate10RandomNumbers() {
-		throw new NotImplementedException();
+		Random rand = new Random();
+		List<Integer> genNum = new ArrayList<>();
+		for(int i = 0; i < 10; i++) {
+			genNum.add(rand.nextInt());
+		}
+		return genNum;
 	}
 
 	public static User findOldest(List<User> users) {
@@ -121,7 +138,9 @@ public class Streams {
 	}
 
 	public static int sumAge(List<User> users) {
-		throw new NotImplementedException();
+		return (int)users.stream()
+				    .map(u -> u.getAge())
+				    .collect(Collectors.summingInt(i -> i));	
 	}
 
 }
