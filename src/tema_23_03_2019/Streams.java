@@ -115,11 +115,13 @@ public class Streams {
 	}
 
 	public static Map<Integer, List<User>> groupByAge(List<User> users) {
-		throw new NotImplementedException();
+		return users.stream()
+					.collect(Collectors.groupingBy(User::getAge));
 	}
 
 	public static Map<Boolean, Map<Integer, List<User>>> groupByGenderAndAge(List<User> users) {
-		throw new NotImplementedException();
+		return users.stream()
+					.collect(Collectors.groupingBy(User::isMale, Collectors.groupingBy(User::getAge)));
 	}
 
 	public static Map<Boolean, Long> countGender(List<User> users) {
