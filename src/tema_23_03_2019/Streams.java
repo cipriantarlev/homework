@@ -12,17 +12,6 @@ import java.util.stream.Stream;
 
 public class Streams {
 	
-	public static void main(String[] args) {
-		User homer = new User("Homer", true);
-		User bart = new User("Bart", true);
-		User maggie = new User("Maggie", false);
-		User lisa = new User("Lisa", false);
-		List<User> input = asList(homer, bart, maggie, lisa);
-		Map<Boolean, List<User>> result = Streams.partionUsersByGender(input);
-		System.out.println(Arrays.asList(result));
-		
-	}
-
 	public static class NotImplementedException extends RuntimeException {
 		public NotImplementedException() {
 			super("This method hasn't been implemented yet!");
@@ -144,7 +133,7 @@ public class Streams {
 
 	public static boolean noneMatch(List<User> users, int age) {
 		return users.stream()
-				.noneMatch(u -> u.getAge().equals(age));
+					.noneMatch(u -> u.getAge().equals(age));
 	}
 
 	public static Optional<User> findAny(List<User> users, String name) {
@@ -164,7 +153,11 @@ public class Streams {
 	}
 
 	public static List<Integer> generateFirst10PrimeNumbers() {
-		throw new NotImplementedException();	
+		return IntStream.iterate(2, i -> i + 1)
+						.filter(Streams::isPrime)
+						.limit(10)
+						.boxed()
+						.collect(Collectors.toList());
 	}
 
 	public static boolean isPrime(int number) {
