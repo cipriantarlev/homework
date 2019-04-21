@@ -1,4 +1,4 @@
-package tema_06_04_2019;
+package tema_06_04_2019.atm;
 
 public interface ATMInterfaceFromServer {
 	
