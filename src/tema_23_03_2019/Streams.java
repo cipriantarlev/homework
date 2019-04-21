@@ -120,8 +120,10 @@ public class Streams {
 	}
 
 	public static Map<Boolean, Map<Integer, List<User>>> groupByGenderAndAge(List<User> users) {
-		return users.stream()
-					.collect(Collectors.groupingBy(User::isMale, Collectors.groupingBy(User::getAge)));
+		Map<Boolean, Map<Integer, List<User>>> collect = users.stream()
+					.collect(Collectors.partitioningBy(User::isMale, Collectors.groupingBy(User::getAge)));
+		System.out.println(collect);
+		return collect;
 	}
 
 	public static Map<Boolean, Long> countGender(List<User> users) {

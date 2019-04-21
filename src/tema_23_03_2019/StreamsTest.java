@@ -5,6 +5,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.collection.IsIterableContainingInOrder.contains;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
@@ -125,10 +126,11 @@ public class StreamsTest {
 		User lisa = new User("Lisa", 8);
 		List<User> input = asList(homer, bart, maggie, lisa);
 		Map<Integer, List<User>> result = Streams.groupByAge(input);
-		assertThat(result.get(50), containsInAnyOrder(homer));
-		assertThat(result.get(12), containsInAnyOrder(bart));
-		assertThat(result.get(8), containsInAnyOrder(lisa));
-		assertThat(result.get(2), containsInAnyOrder(maggie));
+		assertEquals(result.get(50).get(0), homer);
+		assertEquals(result.get(12).get(0), bart);
+		assertEquals(result.get(8).get(0), lisa);
+		assertEquals(result.get(2).get(0), maggie);
+		
 	}
 
 	@Test
@@ -139,10 +141,10 @@ public class StreamsTest {
 		User lisa = new User("Lisa", 8, false);
 		List<User> input = asList(homer, bart, maggie, lisa);
 		Map<Boolean, Map<Integer, List<User>>> result = Streams.groupByGenderAndAge(input);
-		assertThat(result.get(true).get(50), containsInAnyOrder(homer));
-		assertThat(result.get(true).get(12), containsInAnyOrder(bart));
-		assertThat(result.get(false).get(8), containsInAnyOrder(lisa));
-		assertThat(result.get(false).get(2), containsInAnyOrder(maggie));
+		assertEquals(result.get(true).get(50).get(0), homer);
+		assertEquals(result.get(true).get(12).get(0), bart);
+		assertEquals(result.get(false).get(8).get(0), lisa);
+		assertEquals(result.get(false).get(2).get(0), maggie);
 	}
 
 	@Test
