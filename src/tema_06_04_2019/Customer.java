@@ -2,13 +2,13 @@ package tema_06_04_2019;
 
 public class Customer {
 
-	private String cid;
+	private int cid;
 	private String firstName;
 	private String lastName;
 	private int rentalPlan;
 	private String login;
 	
-	public Customer(String cid, String firstName, String lastName, int rentalPlan, String login) {
+	public Customer(int cid, String firstName, String lastName, int rentalPlan, String login) {
 		super();
 		this.cid = cid;
 		this.firstName = firstName;
@@ -17,7 +17,7 @@ public class Customer {
 		this.login = login;
 	}
 	
-	public String getCid() {
+	public int getCid() {
 		return cid;
 	}
 

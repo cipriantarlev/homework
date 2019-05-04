@@ -2,13 +2,13 @@ package tema_06_04_2019;
 
 public class Plan {
 
-	private int id;
+	private int planID;
 	private String name;
 	private int maxRentals;
 	private int monthlyFee;
 	
-	public int getId() {
-		return id;
+	public int getPlanId() {
+		return planID;
 	}
 	
 	public String getName() {
@@ -22,8 +22,8 @@ public class Plan {
 		return monthlyFee;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setplanID(int planID) {
+		this.planID = planID;
 	}
 
 	public void setName(String name) {
@@ -40,7 +40,7 @@ public class Plan {
 
 	@Override
 	public String toString() {
-		return "Plan name is: " + name + ", you can rent a movie " + maxRentals + " times and the fee is " + monthlyFee;
+		return "Plan name is " + name + ", you can rent a movie " + maxRentals + " times and the fee is " + monthlyFee;
 	}
 	
 	

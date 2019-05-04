@@ -10,6 +10,10 @@ public class Producer {
 		this.id = id;
 		this.name = name;
 	}
+	
+	public Producer() {
+		
+	}
 	public String getId() {
 		return id;
 	}
@@ -22,6 +26,6 @@ public class Producer {
 	}
 	@Override
 	public String toString() {
-		return "Producer [name=" + name + "]";
+		return "Producer name: " + name;
 	}
 }

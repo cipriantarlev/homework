@@ -17,6 +17,9 @@ public class Actor {
 		this.name = name;
 		this.gender = gender;
 	}
+	
+	public Actor() {};
+	
 	public String getId() {
 		return id;
 	}
@@ -34,7 +37,7 @@ public class Actor {
 	}
 	@Override
 	public String toString() {
-		return "Actor [name=" + name + ", gender=" + gender + "]";
+		return "Actor name: " + name;
 	}
 	
 }

@@ -1,23 +1,49 @@
 package tema_06_04_2019;
 
+import java.util.List;
+
 public class Movie {
 	
 	private String id;
 	private String name;
-	private int year;
-	private int rating;
+	private List<Actor> actorList;
+	private List<Producer> producerList;
+	private Rental rental;
+	
+	public Movie() {
+		
+	}
 
-	public Movie(String id, String name, int year, int rating) {
+	public Movie(String id, String name) {
 		super();
 		this.id = id;
 		this.name = name;
-		this.year = year;
-		this.rating = rating;
+	}
+	
+	public Rental getRental() {
+		return rental;
+	}
+	
+	public void setRental(Rental rental) {
+		this.rental = rental;
+	}
+	
+	public List<Actor> getActorList() {
+		return actorList;
 	}
 
-	public Movie() {
-
+	public void setActorList(List<Actor> actorList) {
+		this.actorList = actorList;
 	}
+
+	public List<Producer> getProducerList() {
+		return producerList;
+	}
+
+	public void setProducerList(List<Producer> producerList) {
+		this.producerList = producerList;
+	}
+
 
 	public String getId() {
 		return id;
@@ -35,24 +61,8 @@ public class Movie {
 		this.name = name;
 	}
 
-	public int getYear() {
-		return year;
-	}
-
-	public void setYear(int year) {
-		this.year = year;
-	}
-
-	public int getRating() {
-		return rating;
-	}
-
-	public void setRating(int rating) {
-		this.rating = rating;
-	}
-
 	@Override
 	public String toString() {
-		return "Movie [id=" + id + ", name=" + name + ", year=" + year + ", rating=" + rating + "]";
+		return "Movie name: " + name;
 	}
 }
