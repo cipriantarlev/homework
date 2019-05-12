@@ -7,6 +7,15 @@ public class Rental {
 	private String status;
 	private int rentedTimes;
 	
+	public Rental () {};
+	
+	public Rental(int cid, String movieID, String status, int rentedTimes) {
+		super();
+		this.cid = cid;
+		this.movieID = movieID;
+		this.status = status;
+		this.rentedTimes = rentedTimes;
+	}
 	public int getCid() {
 		return cid;
 	}

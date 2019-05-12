@@ -6,7 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -58,6 +57,7 @@ public class VideoStore {
 						break;
 					case 4:
 						System.out.println("Please enter the movie that you want to rent: ");
+						rentVideo(login, scan.next());
 						break;
 					case 5:
 						quit(login);
@@ -76,6 +76,9 @@ public class VideoStore {
 
 	}
 
+	public void rentVideo (String login, String movieName) {
+		insertRentalStatus(getCustomer(login).getCid(), getMovieByName(movieName).stream().map(a -> a.getId()).findFirst().get());
+	}
 
 	public void searchMovie(String login, String name) {
 		printAllMovies(getMovieByName(name));
@@ -84,9 +87,6 @@ public class VideoStore {
 		System.out.println(getRentalStatusByMovieName(name));
 	}
 
-	public void rentVideo() {
-
-	}
 	
 	public void printAllActors(List<Actor> actorList) {
 		actorList.forEach(a -> System.out.println(a));
@@ -109,7 +109,7 @@ public class VideoStore {
 				"Have a good day Mr/Mrs " + getCustomer(login).getFirstName() + " " + getCustomer(login).getLastName());
 	}
 	
-	public void searchMovies(String login) { 
+	private void searchMovies(String login) { 
 		boolean again1 = true;
 		while (again1) {
 			String name = scan.next();
@@ -123,7 +123,7 @@ public class VideoStore {
 	}
 	//check if Plan ID exist and modify it, 
 		//if ID doesn't exist, it ask you to enter it again
-	public void changePlanID(String login) { 
+	private void changePlanID(String login) { 
 		boolean again1 = true;
 		while (again1) {
 			int planID = scan.nextInt();
@@ -133,6 +133,23 @@ public class VideoStore {
 			} else {
 				System.out.println("You have entered a wrong Plan ID, please enter it again: ");
 			}
+		}
+	}
+	
+	private void insertRentalStatus(int cid, String movieId) {
+		Rental ts = new Rental(cid, movieId, "closed", 2);
+		try (Connection connection = getConnection()) {
+			String update = "INSERT INTO rental (cid, movie_id, `status`,rented_times) SELECT * FROM (SELECT ?,?,?,?) AS tmp WHERE NOT EXISTS (SELECT movie_id FROM rental WHERE movie_id = ?) LIMIT 1";
+			PreparedStatement ps = connection.prepareStatement(update);
+			ps.setInt(1, ts.getCid());
+			ps.setString(2, ts.getMovieID());
+			ps.setString(3, ts.getStatus());
+			ps.setInt(4, ts.getRentedTimes());
+			ps.setString(5, movieId);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("There is no connection with DB");
+			e.printStackTrace();
 		}
 	}
 	
@@ -151,7 +168,7 @@ public class VideoStore {
 				rental.setStatus(rs.getString("status"));
 			}
 		} catch (SQLException e) {
-			System.out.println("This producer was not found!");
+			System.out.println("There is no connection with DB");
 		}
 		return rental;
 	}
@@ -172,7 +189,7 @@ public class VideoStore {
 				actorList.add(actor);
 			}
 		} catch (SQLException e) {
-			System.out.println("This producer was not found!");
+			System.out.println("There is no connection with DB");
 		}
 		return actorList;
 	}
@@ -190,7 +207,7 @@ public class VideoStore {
 				producerList.add(producer);
 			}
 		} catch (SQLException e) {
-			System.out.println("This producer was not found!");
+			System.out.println("There is no connection with DB");
 		}
 		return producerList;
 	}
@@ -207,7 +224,7 @@ public class VideoStore {
 				movieList.add(getMovie());
 			}
 		} catch (SQLException e) {
-			System.out.println("This movie was not found!");
+			System.out.println("There is no connection with DB");
 		}
 		return movieList;
 	}
@@ -220,7 +237,7 @@ public class VideoStore {
 			ps.setInt(2, cid);
 			ps.executeUpdate();
 		} catch (SQLException e) {
-			System.out.println("You have entered a wrong Plan ID!");
+			System.out.println("There is no connection with DB");
 		}
 
 	}
@@ -240,7 +257,7 @@ public class VideoStore {
 				planList.add(plan);
 			}
 		} catch (SQLException e) {
-			System.out.println("This plan was not found!");
+			System.out.println("There is no connection with DB");
 		}
 		return planList;
 	}
@@ -254,7 +271,7 @@ public class VideoStore {
 			rs.next();
 			setCustomer(new Customer(rs.getInt(2), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getString(1)));
 		} catch (SQLException e) {
-			System.out.println("This login has been not found!");
+			System.out.println("There is no connection with DB");
 		}
 		return getCustomer();
 	}
